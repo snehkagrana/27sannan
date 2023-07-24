@@ -1,3 +1,6 @@
+To make the Google Sign-In work, you need to uncomment the Google Strategy section of your code. This is the updated version of your passport.js file with the required changes:
+
+
 const User = require("./models/user");
 const bcrypt = require("bcryptjs");
 const localStrategy = require("passport-local").Strategy;
@@ -24,48 +27,46 @@ module.exports = function (passport) {
     	})
   	);
 	
-	// passport.use(new GoogleStrategy({
-	// 	// options for google strategy
-	// 	clientID: process.env.GOOGLE_CLIENT_ID,
-	// 	clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-	// 	callbackURL: "https://tryfingo.com/auth/login-google/callback"		//google callback url, same as the one added in Google API page
-	// },
+	passport.use(new GoogleStrategy({
+		// options for google strategy
+		clientID: process.env.GOOGLE_CLIENT_ID,
+		clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+		callbackURL: "https://tryfingo.com/auth/login-google/callback"		//google callback url, same as the one added in Google API page
+	},
 
-	// function(accessToken, refreshToken, profile, done) {
-	// 	// passport callback function
-	// 	// Eg: Register user here.
+	function(accessToken, refreshToken, profile, done) {
+		// passport callback function
+		// Eg: Register user here.
 		
-	// 	// console.log('profile', profile);
-	// 	const email = profile.emails[0].value;
-	// 	const username = email;
-	// 	// console.log('username', username);
+		const email = profile.emails[0].value;
+		const username = email;
 
-	// 	////checking if another user with same username already exists
-	// 	User.findOne({ username: username }, async (err, doc) => {
-	// 		if (err) throw err;
-	// 		if (doc){
-	// 			return done(null, doc);
-	// 		}
+		//checking if another user with same username already exists
+		User.findOne({ username: username }, async (err, doc) => {
+			if (err) throw err;
+			if (doc){
+				return done(null, doc);
+			}
 
-	// 		if (!doc) {
-	// 			User.findOne({ email: email }, async (err, doc) => {
-	// 				if (err) throw err;
-	// 				if (doc){
-	// 					return done(null, doc);
-	// 				} else {
-	// 					const newUser = new User({
-	// 						username: username,
-	// 						email: email,
-	// 						role: "basic"
-	// 					});
-	// 					await newUser.save();
-	// 					console.log('user', newUser);
-	// 					return done(null, newUser);
-	// 				}
-	// 			});
-	// 		}
-	// 	});
-	// }));
+			if (!doc) {
+				User.findOne({ email: email }, async (err, doc) => {
+					if (err) throw err;
+					if (doc){
+						return done(null, doc);
+					} else {
+						const newUser = new User({
+							username: username,
+							email: email,
+							role: "basic"
+						});
+						await newUser.save();
+						console.log('user', newUser);
+						return done(null, newUser);
+					}
+				});
+			}
+		});
+	}));
 
   	passport.serializeUser((user, cb) => {  // stores a cookie inside the browser
     	cb(null, user.id);
@@ -84,3 +85,4 @@ module.exports = function (passport) {
     	});
   	});
 };
+
