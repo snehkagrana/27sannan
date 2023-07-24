@@ -1,6 +1,3 @@
-To make the Google Sign-In work, you need to uncomment the Google Strategy section of your code. This is the updated version of your passport.js file with the required changes:
-
-
 const User = require("./models/user");
 const bcrypt = require("bcryptjs");
 const localStrategy = require("passport-local").Strategy;
@@ -33,15 +30,16 @@ module.exports = function (passport) {
 		clientSecret: process.env.GOOGLE_CLIENT_SECRET,
 		callbackURL: "https://tryfingo.com/auth/login-google/callback"		//google callback url, same as the one added in Google API page
 	},
-
 	function(accessToken, refreshToken, profile, done) {
 		// passport callback function
 		// Eg: Register user here.
 		
+		// console.log('profile', profile);
 		const email = profile.emails[0].value;
 		const username = email;
+		// console.log('username', username);
 
-		//checking if another user with same username already exists
+		////checking if another user with same username already exists
 		User.findOne({ username: username }, async (err, doc) => {
 			if (err) throw err;
 			if (doc){
