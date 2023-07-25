@@ -6,20 +6,22 @@ const user = new mongoose.Schema({
     email: String,
     password: String,
     role: String,
-    score:[{
-        skill: {
-            type: String,
+    score: [
+        {
+            skill: {
+                type: String,
+            },
+            category: {
+                type: String,
+            },
+            sub_category: {
+                type: String,
+            },
+            points: {
+                type: Number,
+            },
         },
-        category: {
-            type: String,
-        },
-        sub_category: {
-            type: String,
-        },
-        points: {
-            type: Number,
-        }
-    }],
+    ],
     last_played: {
         skill: {
             type: String,
@@ -29,9 +31,9 @@ const user = new mongoose.Schema({
         },
         sub_category: {
             type: String,
-        } 
-    }, 
-    password_reset_token: String
+        },
+    },
+    password_reset_token: String,
 });
 
 module.exports = mongoose.model("User", user);

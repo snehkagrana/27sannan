@@ -1,7 +1,7 @@
 function authUser(req, res, next) {
-    if(req.user == null){
+    if (req.user == null) {
         res.status(403);
-        return res.send('You need to log in');
+        return res.send("You need to log in");
     }
     next();
 }
@@ -9,16 +9,16 @@ function authUser(req, res, next) {
 function authRole(permissions) {
     return (req, res, next) => {
         const userRole = req.user.role;
-        if(permissions.includes(userRole)){
+        if (permissions.includes(userRole)) {
             next();
-        }else{
+        } else {
             res.status(401);
-            return res.send('Not Allowed');
+            return res.send("Not Allowed");
         }
-    }
+    };
 }
 
 module.exports = {
     authUser,
-    authRole
-}
+    authRole,
+};

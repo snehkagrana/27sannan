@@ -4,12 +4,16 @@ const question = new mongoose.Schema({
     question: {
         type: String,
     },
-    options: [{
-        type: String,
-    }],
-    correct_answers: [{
-        type: String,
-    }],
+    options: [
+        {
+            type: String,
+        },
+    ],
+    correct_answers: [
+        {
+            type: String,
+        },
+    ],
     explaination: {
         type: String,
     },
@@ -22,8 +26,8 @@ const question = new mongoose.Schema({
     sub_category: {
         type: String,
     },
-    imgpath:{
-        type:String,
+    imgpath: {
+        type: String,
     },
 });
 

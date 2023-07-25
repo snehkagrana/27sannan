@@ -1,128 +1,171 @@
-import React, { useRef, useState , useEffect} from "react";
-import {useParams} from 'react-router-dom';
+import React, { useRef, useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Axios from "axios";
-import {Link, useNavigate } from 'react-router-dom';
-import {Modal, Badge, Row, Form, Button, Col, Image, Container} from 'react-bootstrap';
-import {Helmet} from 'react-helmet';
-import Navbar from '../components/Navbar';
-import Card from 'react-bootstrap/Card';
+import { Link, useNavigate } from "react-router-dom";
+import {
+    Modal,
+    Badge,
+    Row,
+    Form,
+    Button,
+    Col,
+    Image,
+    Container,
+} from "react-bootstrap";
+import { Helmet } from "react-helmet";
+import Navbar from "../components/Navbar";
+import Card from "react-bootstrap/Card";
 
 const AllInformation = () => {
-    const {skill, category, subcategory} = useParams();
+    const { skill, category, subcategory } = useParams();
     const navigate = useNavigate();
-	const [informationList, setInformationList] = useState([]);
-	const [infoToDelete, setInfoToDelete] = useState(null);
-	const role = useRef('');
+    const [informationList, setInformationList] = useState([]);
+    const [infoToDelete, setInfoToDelete] = useState(null);
+    const role = useRef("");
 
-	const [showWarning, setShowWarning] = useState(false);
+    const [showWarning, setShowWarning] = useState(false);
 
-		const handleCloseWarning = () => setShowWarning(false);
-		const handleShowWarning = () => setShowWarning(true);
+    const handleCloseWarning = () => setShowWarning(false);
+    const handleShowWarning = () => setShowWarning(true);
 
-	const getAllInformation = () => {
+    const getAllInformation = () => {
         // console.log(skill, category, subcategory);
-		Axios({
-			method: "GET",
-			withCredentials: true,
-			url: `/server/allinformation/${skill}/${category}/${subcategory}`,
-		}).then((res) => {
-			// console.log("information data are:", res.data.data);
-			setInformationList(res.data.data);
-		});
-	};
+        Axios({
+            method: "GET",
+            withCredentials: true,
+            url: `/server/allinformation/${skill}/${category}/${subcategory}`,
+        }).then((res) => {
+            // console.log("information data are:", res.data.data);
+            setInformationList(res.data.data);
+        });
+    };
 
     const handleEdit = (editInfo) => {
         // console.log('edited skill', editInfo);
-		navigate(`/editinformation/${skill}/${category}/${subcategory}/${editInfo._id}`);
+        navigate(
+            `/editinformation/${skill}/${category}/${subcategory}/${editInfo._id}`
+        );
     };
 
-	const handleDeleteWarning = (deleteInfo) =>{
-		handleShowWarning();
-		setInfoToDelete(deleteInfo);
-	};
+    const handleDeleteWarning = (deleteInfo) => {
+        handleShowWarning();
+        setInfoToDelete(deleteInfo);
+    };
 
     const handleDelete = (deleteInfo) => {
         // console.log('deleted info', deleteInfo);
-		Axios({
-			method: "POST",
-			data: {
+        Axios({
+            method: "POST",
+            data: {
                 skill: skill,
-				category: category,
-				subcategory: subcategory
+                category: category,
+                subcategory: subcategory,
             },
-			withCredentials: true,
-			url: `/server/deleteinformation/${deleteInfo._id}`,
-		}).then((res) => {
-			var updatedInformationList = informationList.filter((information) => information._id !== deleteInfo._id)
+            withCredentials: true,
+            url: `/server/deleteinformation/${deleteInfo._id}`,
+        }).then((res) => {
+            var updatedInformationList = informationList.filter(
+                (information) => information._id !== deleteInfo._id
+            );
             setInformationList(updatedInformationList);
-		});
+        });
     };
 
-    useEffect ( () => {
-		// console.log("in use effect");
-		Axios({
-			method: "GET",
-			withCredentials: true,
-			url: "/server/login",
-		}).then(function (response) {
-			if (response.data.redirect == '/login') {
-				// console.log("Please log in");
-				navigate(`/auth/login`);
-			} 
-			else{
-				getAllInformation();
-				role.current = response.data.user.role;
-			}
-		}); 
-		
-	}, []);
+    useEffect(() => {
+        // console.log("in use effect");
+        Axios({
+            method: "GET",
+            withCredentials: true,
+            url: "/server/login",
+        }).then(function (response) {
+            if (response.data.redirect == "/login") {
+                // console.log("Please log in");
+                navigate(`/auth/login`);
+            } else {
+                getAllInformation();
+                role.current = response.data.user.role;
+            }
+        });
+    }, []);
 
-    return ( 
+    return (
         <>
-		<Helmet><title>All Information</title></Helmet>
-		<Navbar  proprole={role}/>
-        <Container>
-			<br/>
-			<h2 style={{color: "#000"}} className="text-center"><Badge pill bg="light">Edit/Delete Information</Badge></h2>
-			
-			<Row xs={1} md={2} className="g-4 mt-5">
-			{informationList.map((information, i) => (
-			<Col key={i}>
-				<Card className="mb-4">
-					<Card.Header as="h5">{information.heading}</Card.Header>
-					<Card.Body>
-					{/* <Card.Title>{category}</Card.Title> */}
-					<Card.Text>
-					{/* {information.information} */}
-					</Card.Text>
-					<Button onClick={() => handleEdit(information)}>Edit</Button>{' '} 
-					<Button onClick={() => handleDeleteWarning(information)}>Delete</Button> 
-				</Card.Body>
-				</Card>
-			</Col>
-			))}
+            <Helmet>
+                <title>All Information</title>
+            </Helmet>
+            <Navbar proprole={role} />
+            <Container>
+                <br />
+                <h2 style={{ color: "#000" }} className="text-center">
+                    <Badge pill bg="light">
+                        Edit/Delete Information
+                    </Badge>
+                </h2>
 
-			{infoToDelete!=null && <Modal show={showWarning} onHide={handleCloseWarning}>
-			<Modal.Header closeButton>
-			<Modal.Title>Confirm Deleting {infoToDelete.heading}</Modal.Title>
-			</Modal.Header>
-			<Modal.Body>You sure, you want to delete?</Modal.Body>
-			<Modal.Footer>
-			<Button variant="secondary" onClick={() =>{ setInfoToDelete(null); handleCloseWarning(); }}>
-				Cancel
-			</Button>
-			<Button variant="danger" onClick={() => {handleDelete(infoToDelete); setInfoToDelete(null); handleCloseWarning(); }}>
-				Delete
-			</Button>
-			</Modal.Footer>
-		</Modal>}
-		</Row>
-		</Container>
-		
+                <Row xs={1} md={2} className="g-4 mt-5">
+                    {informationList.map((information, i) => (
+                        <Col key={i}>
+                            <Card className="mb-4">
+                                <Card.Header as="h5">
+                                    {information.heading}
+                                </Card.Header>
+                                <Card.Body>
+                                    {/* <Card.Title>{category}</Card.Title> */}
+                                    <Card.Text>
+                                        {/* {information.information} */}
+                                    </Card.Text>
+                                    <Button
+                                        onClick={() => handleEdit(information)}>
+                                        Edit
+                                    </Button>{" "}
+                                    <Button
+                                        onClick={() =>
+                                            handleDeleteWarning(information)
+                                        }>
+                                        Delete
+                                    </Button>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    ))}
+
+                    {infoToDelete != null && (
+                        <Modal show={showWarning} onHide={handleCloseWarning}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>
+                                    Confirm Deleting {infoToDelete.heading}
+                                </Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                You sure, you want to delete?
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button
+                                    variant="secondary"
+                                    onClick={() => {
+                                        setInfoToDelete(null);
+                                        handleCloseWarning();
+                                    }}>
+                                    Cancel
+                                </Button>
+                                <Button
+                                    variant="danger"
+                                    onClick={() => {
+                                        handleDelete(infoToDelete);
+                                        setInfoToDelete(null);
+                                        handleCloseWarning();
+                                    }}>
+                                    Delete
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
+                    )}
+                </Row>
+            </Container>
         </>
-     );
-}
- 
+    );
+};
+
 export default AllInformation;
 
 ///TODO: change hard coded value 5
