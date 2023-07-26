@@ -40,8 +40,9 @@ module.exports = function (passport) {
                 // passport callback function
                 // Eg: Register user here.
 
-                // console.log('profile', profile);
+                // console.log("profile", profile);
                 const email = profile.emails[0].value;
+                const displayName = profile.displayName;
                 const username = email;
                 // console.log('username', username);
 
@@ -60,6 +61,7 @@ module.exports = function (passport) {
                             } else {
                                 const newUser = new User({
                                     username: username,
+                                    displayName: displayName,
                                     email: email,
                                     role: "basic",
                                 });
@@ -84,6 +86,7 @@ module.exports = function (passport) {
         User.findOne({ _id: id }, (err, user) => {
             const userInformation = {
                 username: user.username,
+                displayName: user.displayName,
                 email: user.email,
                 score: user.score,
                 last_played: user.last_played,
