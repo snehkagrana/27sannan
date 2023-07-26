@@ -150,7 +150,7 @@ app.post("/server/login", (req, res, next) => {
 ////we check if user is already logged in or not
 app.get("/server/login", (req, res) => {
     if (req.isAuthenticated()) {
-        // console.log('user is', req.user);
+        console.log("user is", req.user);
         if (req.user.email === undefined || req.user.email === "") {
             var redir = {
                 redirect: "/updateemail",
@@ -237,6 +237,8 @@ app.post("/server/register", (req, res) => {
                         email: req.body.email,
                         password: hashedPassword,
                         role: "basic",
+                        streak: 0,
+                        lastCompletedDay: null,
                     });
                     await newUser.save();
                     var redir = { redirect: "/login", message: "User Created" };
@@ -1853,6 +1855,16 @@ app.post("/server/savescore", authUser, (req, res) => {
                 sub_category: req.body.sub_category,
                 points: req.body.points,
             });
+
+            const today = new Date().toISOString().split("T")[0];
+            if (!doc.lastCompletedDay || isNextDay(doc.lastCompletedDay)) {
+                doc.streak++;
+                doc.lastCompletedDay = today;
+            } else {
+                doc.streak = 0;
+                doc.lastCompletedDay = today;
+            }
+
             let updatedDoc = await User.updateOne(
                 { username: req.user.username },
                 {
@@ -1863,13 +1875,19 @@ app.post("/server/savescore", authUser, (req, res) => {
                             category: req.body.category,
                             sub_category: req.body.sub_category,
                         },
+                        streak: doc.streak,
+                        lastCompletedDay: doc.lastCompletedDay,
                     },
                 }
             );
             // console.log('updated', updatedDoc);
         }
         // console.log('scored user = ', req.user);
-        var redir = { message: "Success" };
+        var redir = {
+            message: "Success",
+            streak: doc.streak,
+            lastCompletedDay: doc.lastCompletedDay,
+        };
         return res.json(redir);
     });
 });
@@ -1894,3 +1912,13 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 // }
+
+const isNextDay = (lastDate) => {
+    const today = new Date();
+    const lastDay = new Date(lastDate);
+    return (
+        today.getUTCFullYear() === lastDay.getUTCFullYear() &&
+        today.getUTCMonth() === lastDay.getUTCMonth() &&
+        today.getUTCDate() === lastDay.getUTCDate() + 1
+    );
+};

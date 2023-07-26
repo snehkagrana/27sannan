@@ -88,6 +88,8 @@ module.exports = function (passport) {
                 score: user.score,
                 last_played: user.last_played,
                 role: user.role,
+                streak: user.streak,
+                lastCompletedDay: user.lastCompletedDay,
             };
             cb(err, userInformation);
         });

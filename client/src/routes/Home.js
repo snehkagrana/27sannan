@@ -55,7 +55,7 @@ const Home = (props) => {
     const statistics = [
         {
             title: "Day Streak",
-            value: "30",
+            value: user ? user.streak : 0,
             icon: FaCalendar,
             color: "#F9C80E",
         },

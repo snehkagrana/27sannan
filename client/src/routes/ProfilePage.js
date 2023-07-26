@@ -9,6 +9,7 @@ import { FaCalendar, FaStar, FaTrophy, FaMedal } from "react-icons/fa";
 
 const ProfilePage = (props) => {
     const [userName, setUserName] = useState(null);
+    const [user, setUser] = useState(null);
     const navigate = useNavigate();
     const role = useRef("");
     const [score, setScore] = useState([]);
@@ -17,7 +18,7 @@ const ProfilePage = (props) => {
     const statistics = [
         {
             title: "Day Streak",
-            value: "30",
+            value: user ? user.streak : 0,
             icon: FaCalendar,
             color: "#F9C80E",
         },
@@ -75,6 +76,7 @@ const ProfilePage = (props) => {
                 navigate(`/auth/login`);
             } else {
                 setUserName(response.data.user.username);
+                setUser(response.data.user);
                 role.current = response.data.user.role;
                 getScore();
             }
