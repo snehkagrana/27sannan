@@ -234,6 +234,7 @@ app.post("/server/register", (req, res) => {
                     );
                     const newUser = new User({
                         username: req.body.username,
+                        displayName: req.body.displayName,
                         email: req.body.email,
                         password: hashedPassword,
                         role: "basic",

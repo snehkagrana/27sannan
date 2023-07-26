@@ -16,6 +16,8 @@ import GoogleButton from "react-google-button";
 
 const Register = (props) => {
     const [registerUsername, setRegisterUsername] = useState("");
+    const [registerFirstName, setRegisterFirstName] = useState("");
+    const [registerLastName, setRegisterLastName] = useState("");
     const [registerPassword, setRegisterPassword] = useState("");
     const [registerEmail, setRegisterEmail] = useState("");
     const [usernameTooltipMessage, setUsernameTooltipMessage] = useState(
@@ -24,9 +26,17 @@ const Register = (props) => {
     const [emailTooltipMessage, setEmailTooltipMessage] = useState(
         "Email can't be empty"
     );
+    const [lastNameTooltipMessage, setLastNameTooltipMessage] = useState(
+        "Last Name can't be empty"
+    );
+    const [firstNameTooltipMessage, setFirstNameTooltipMessage] = useState(
+        "First Name can't be empty"
+    );
     const [authMsg, setAuthMsg] = useState("");
     const [validUsername, setValidUsername] = useState(false);
     const [validEmail, setValidEmail] = useState(false);
+    const [validFirstName, setValidFirstName] = useState(false);
+    const [validLastName, setValidLastName] = useState(false);
     const [showAuthMsg, setShowAuthMsg] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
@@ -42,6 +52,7 @@ const Register = (props) => {
             method: "POST",
             data: {
                 username: registerUsername,
+                displayName: `${registerFirstName} ${registerLastName}`,
                 email: registerEmail,
                 password: registerPassword,
                 role: "basic",
@@ -93,6 +104,30 @@ const Register = (props) => {
         } else {
             setUsernameTooltipMessage("Spaces are not allowed");
             setValidUsername(false);
+        }
+    };
+
+    const handleFirstNameChange = (e) => {
+        setRegisterFirstName(e.target.value);
+        var firstNameRegex = /\s/;
+        if (e.target.value === "") {
+            setFirstNameTooltipMessage("First Name can't be empty");
+            setValidFirstName(false);
+        } else if (!firstNameRegex.test(e.target.value)) {
+            setFirstNameTooltipMessage("");
+            setValidFirstName(true);
+        }
+    };
+
+    const handleLastNameChange = (e) => {
+        setRegisterLastName(e.target.value);
+        var lastNameRegex = /\s/;
+        if (e.target.value === "") {
+            setLastNameTooltipMessage("Last Name can't be empty");
+            setValidLastName(false);
+        } else if (!lastNameRegex.test(e.target.value)) {
+            setLastNameTooltipMessage("");
+            setValidLastName(true);
         }
     };
 
@@ -153,6 +188,44 @@ const Register = (props) => {
                                     type="username"
                                     placeholder="Enter a unique username"
                                     onChange={handleUsernameChange}
+                                    style={{
+                                        borderRadius: "10px",
+                                        padding: "25px",
+                                    }}
+                                />
+                            </Form.Group>
+                            <br />
+                            <Form.Group>
+                                {/* <Form.Label>Enter your first name</Form.Label> */}
+                                <Form.Text
+                                    style={{
+                                        color: validFirstName ? "green" : "red",
+                                    }}>
+                                    {firstNameTooltipMessage}
+                                </Form.Text>
+                                <Form.Control
+                                    type="username"
+                                    placeholder="Enter your first name"
+                                    onChange={handleFirstNameChange}
+                                    style={{
+                                        borderRadius: "10px",
+                                        padding: "25px",
+                                    }}
+                                />
+                            </Form.Group>
+                            <br />
+                            <Form.Group>
+                                {/* <Form.Label>Enter your last name</Form.Label> */}
+                                <Form.Text
+                                    style={{
+                                        color: validLastName ? "green" : "red",
+                                    }}>
+                                    {lastNameTooltipMessage}
+                                </Form.Text>
+                                <Form.Control
+                                    type="username"
+                                    placeholder="Enter your last name"
+                                    onChange={handleLastNameChange}
                                     style={{
                                         borderRadius: "10px",
                                         padding: "25px",
