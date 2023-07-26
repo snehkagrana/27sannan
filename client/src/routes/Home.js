@@ -265,7 +265,11 @@ const Home = (props) => {
                 // console.log("Already logged in");
                 role.current = response.data.user.role;
                 setUser(response.data.user);
-                setUserName(response.data.user.displayName.split(" ")[0]);
+                setUserName(
+                    response.data.user.displayName
+                        ? response.data.user.displayName?.split(" ")[0]
+                        : response.data.user.username
+                );
 
                 setLastPlayed(response.data.user.last_played);
                 getSkills(response.data.user.last_played);
