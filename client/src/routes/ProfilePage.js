@@ -17,7 +17,7 @@ const ProfilePage = (props) => {
     const joinDate = "Joined: July 4, 2023";
     const statistics = [
         {
-            title: "Day Streak",
+            title: "Daily Streak",
             value: user ? user.streak : 0,
             icon: FaCalendar,
             color: "#F9C80E",
