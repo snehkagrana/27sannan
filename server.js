@@ -250,6 +250,22 @@ app.post("/server/register", (req, res) => {
     });
 });
 
+app.post("/server/updatefullname", authUser, async (req, res) => {
+    User.findOne({ username: req.user.username }, async (err, doc) => {
+        if (err) {
+            console.log("ERROR", err);
+        } else {
+            await User.updateOne(
+                { username: req.user.username },
+                { $set: { displayName: req.body.displayName } }
+            );
+        }
+        // console.log('scored user = ', req.user);
+        var redir = { redirect: "/home", message: "Success" };
+        return res.json(redir);
+    });
+});
+
 app.post("/server/updateemail", authUser, async (req, res) => {
     User.findOne({ username: req.user.username }, async (err, doc) => {
         if (err) {

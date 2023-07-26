@@ -75,7 +75,11 @@ const ProfilePage = (props) => {
                 // console.log("Please log in");
                 navigate(`/auth/login`);
             } else {
-                setUserName(response.data.user.username);
+                setUserName(
+                    response.data.user.displayName
+                        ? response.data.user.displayName
+                        : response.data.user.username
+                );
                 setUser(response.data.user);
                 role.current = response.data.user.role;
                 getScore();
