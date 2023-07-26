@@ -1,5 +1,28 @@
 /* 1 */
-:root {
+/* :root {
+    --font-color: #333;
+    --background-color: #fff;
+    --link-color: cornflowerblue;
+
+    .card {
+        background-color: var(--background-color);
+        color: var(--font-color);
+        border: 1px solid black;
+    }
+
+    .modal {
+        background-color: var(--background-color);
+        color: var(--font-color);
+    }
+
+    .list-group-item {
+        background-color: var(--background-color);
+        color: var(--font-color);
+    }
+} */
+
+/* 2 */
+[data-theme="light"] {
     --font-color: #333;
     --background-color: #fff;
     --link-color: cornflowerblue;
@@ -21,7 +44,6 @@
     }
 }
 
-/* 2 */
 [data-theme="dark"] {
     --font-color: #fff;
     --background-color: #000;
@@ -134,7 +156,7 @@ input:checked + .slider {
     border-radius: 50%;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
     :root {
         --font-color: #fff;
         --background-color: #000;
@@ -176,3 +198,27 @@ input:checked + .slider {
         color: var(--font-color);
     }
 }
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --font-color: #333;
+        --background-color: #fff;
+        --link-color: cornflowerblue;
+    }
+
+    .card {
+        background-color: var(--background-color);
+        color: var(--font-color);
+        border: 1px solid black;
+    }
+
+    .modal {
+        background-color: var(--background-color);
+        color: var(--font-color);
+    }
+
+    .list-group-item {
+        background-color: var(--background-color);
+        color: var(--font-color);
+    }
+} */
