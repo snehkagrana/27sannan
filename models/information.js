@@ -16,8 +16,8 @@ const information = new mongoose.Schema({
     sub_category: {
         type: String,
     },
-    imgpath:{
-        type:String,
+    imgpath: {
+        type: String,
     },
 });
 

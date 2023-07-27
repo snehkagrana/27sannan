@@ -2,17 +2,16 @@ import "../DarkMode.css";
 
 // 1
 const setDark = () => {
+    // 2
+    localStorage.setItem("theme", "dark");
 
-  // 2
-  localStorage.setItem("theme", "dark");
-
-  // 3
-  document.documentElement.setAttribute("data-theme", "dark");
+    // 3
+    document.documentElement.setAttribute("data-theme", "dark");
 };
 
 const setLight = () => {
-  localStorage.setItem("theme", "light");
-  document.documentElement.setAttribute("data-theme", "light");
+    localStorage.setItem("theme", "light");
+    document.documentElement.setAttribute("data-theme", "light");
 };
 
 // 4
@@ -32,30 +31,29 @@ const storedTheme = localStorage.getItem("theme");
 // 5
 const toggleTheme = (e) => {
     if (e.target.checked) {
-      setDark();
+        setDark();
     } else {
-      setLight();
+        setLight();
     }
-  };
+};
 
 const DarkMode = () => {
-  return (
-    <div className="toggle-theme-wrapper">
-      <span>☀️</span>
-      <label className="toggle-theme" htmlFor="checkbox">
-        <input
-          type="checkbox"
-          id="checkbox"
-
-          // 6
-          onChange={toggleTheme}
-          // defaultChecked={defaultDark}
-        />
-        <div className="slider round"></div>
-      </label>
-      <span>🌒</span>
-    </div>
-  );
+    return (
+        <div className="toggle-theme-wrapper">
+            <span>☀️</span>
+            <label className="toggle-theme" htmlFor="checkbox">
+                <input
+                    type="checkbox"
+                    id="checkbox"
+                    // 6
+                    onChange={toggleTheme}
+                    // defaultChecked={defaultDark}
+                />
+                <div className="slider round"></div>
+            </label>
+            <span>🌒</span>
+        </div>
+    );
 };
 
 export default DarkMode;
