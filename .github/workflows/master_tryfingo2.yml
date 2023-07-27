@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'tryfingo2'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0291C6C5D1704FE291A6881C0CD9044F }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9373CF10195F48FCB5A8FFF9ADC40068 }}
           package: .
