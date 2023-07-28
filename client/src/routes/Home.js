@@ -25,7 +25,7 @@ import { MDBBtn } from "mdb-react-ui-kit";
 import "../styles/file.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { FaCalendar, FaStar, FaTrophy, FaMedal } from "react-icons/fa";
+import { FaCalendar, FaStar, FaTrophy, FaMedal, FaFire } from "react-icons/fa";
 import DarkMode from "../components/DarkMode";
 
 ////This is the home page of the website, which is user directed to the
@@ -58,6 +58,7 @@ const Home = (props) => {
             value: user ? user.streak : 0,
             icon: FaCalendar,
             color: "#F9C80E",
+            streak: FaFire,
         },
     ];
 
@@ -374,6 +375,17 @@ const Home = (props) => {
                                                             fontSize: 30,
                                                         }}>
                                                         {stat.value}
+                                                        {stat.value > 0 ? (
+                                                            <stat.streak
+                                                                size={24}
+                                                                color="#FF6347"
+                                                            />
+                                                        ) : (
+                                                            <stat.streak
+                                                                size={24}
+                                                                color="#FFF"
+                                                            />
+                                                        )}
                                                     </Card.Text>
                                                 </div>
                                             </div>
