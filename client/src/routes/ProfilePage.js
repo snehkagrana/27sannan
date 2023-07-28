@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import { Container, Card, Row, ProgressBar, Col, Image } from "react-bootstrap";
 import { Helmet } from "react-helmet";
 import Navbar from "../components/Navbar";
-import { FaCalendar, FaStar, FaTrophy, FaMedal } from "react-icons/fa";
+import { FaCalendar, FaStar, FaTrophy, FaMedal, FaFire } from "react-icons/fa";
 
 const ProfilePage = (props) => {
     const [userName, setUserName] = useState(null);
@@ -21,6 +21,7 @@ const ProfilePage = (props) => {
             value: user ? user.streak : 0,
             icon: FaCalendar,
             color: "#F9C80E",
+            streak: FaFire,
         },
         { title: "Total XP", value: "5000", icon: FaStar, color: "#FF6B6B" },
         {
@@ -208,6 +209,17 @@ const ProfilePage = (props) => {
                                                     </Card.Title>
                                                     <Card.Text>
                                                         {stat.value}
+                                                        {stat.value > 0 ? (
+                                                            <stat.streak
+                                                                size={24}
+                                                                color="#FF6347"
+                                                            />
+                                                        ) : (
+                                                            <stat.streak
+                                                                size={24}
+                                                                color="#FFF"
+                                                            />
+                                                        )}
                                                     </Card.Text>
                                                 </div>
                                             </div>
