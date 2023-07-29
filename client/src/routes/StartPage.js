@@ -54,12 +54,12 @@ const StartPage = (props) => {
                     </h1>
                     <br />
                     <h5>
-                        Get access to 450+ chapters on Investing, Trading,
+                        Get access to 500+ chapters on Investing, Trading,
                         Crypto, and more. Each only 3 minutes long.
                     </h5>
                     <br />
                     <h5>
-                        Plus, challenge yourself with 1800+ quizzes to test your
+                        Plus, challenge yourself with 2000+ quizzes to test your
                         knowledge.
                     </h5>
                     <br />
