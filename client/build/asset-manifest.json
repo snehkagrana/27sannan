@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.74509454.css",
-    "main.js": "/static/js/main.9218b2c6.js",
+    "main.js": "/static/js/main.5a2daaf9.js",
     "static/js/787.83904489.chunk.js": "/static/js/787.83904489.chunk.js",
     "static/media/teach.png": "/static/media/teach.2bacf433357e94cdf508.png",
     "static/media/Sector.png": "/static/media/Sector.a1f0777df16b087c5d70.png",
@@ -13,15 +13,16 @@
     "static/media/Fixed.png": "/static/media/Fixed.399665b8dea08fc57602.png",
     "static/media/Trading.png": "/static/media/Trading.a12c1f3b87c7bdc17df0.png",
     "static/media/Investing.png": "/static/media/Investing.5f97fcad2df14e15e373.png",
+    "static/media/heart.png": "/static/media/heart.0b75270654fa0ba30f5f.png",
     "static/media/logo.jpeg": "/static/media/logo.c36004afa72a10d2e3ba.jpeg",
     "static/media/sneh.jpg": "/static/media/sneh.f9ee79a2259e5e5a0ac8.jpg",
     "index.html": "/index.html",
     "main.74509454.css.map": "/static/css/main.74509454.css.map",
-    "main.9218b2c6.js.map": "/static/js/main.9218b2c6.js.map",
+    "main.5a2daaf9.js.map": "/static/js/main.5a2daaf9.js.map",
     "787.83904489.chunk.js.map": "/static/js/787.83904489.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.74509454.css",
-    "static/js/main.9218b2c6.js"
+    "static/js/main.5a2daaf9.js"
   ]
 }
