@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import { Row, Col, Image } from "react-bootstrap";
 import { Helmet } from "react-helmet";
 import GeneralNavbar from "../components/GeneralNavbar";
+import Footer from "../components/Footer";
 const logo = require("../images/teach.png");
 
 ////This is the home page of the website, which is user directed to the
@@ -42,7 +43,7 @@ const StartPage = (props) => {
             <br />
             <br />
 
-            <Row style={{ margin: "auto", width: "80%" }}>
+            <Row style={{ margin: "auto", width: "80%", height: "80vh"}}>
                 <Col xs={12} md={6} style={{ marginTop: "" }}>
                     <img src={logo} className="img-fluid" alt="Learn Finance" />
                 </Col>
@@ -99,6 +100,7 @@ const StartPage = (props) => {
 			<Button style={{ width: "50%", marginLeft: "25%", padding: "15px", borderRadius: "15px", boxShadow: "initial" }} onClick={() => navigate(`/auth/login`)}>Get Started</Button> 
 			</Col>
 		</Row> */}
+        <Footer/>
         </>
     );
 };
